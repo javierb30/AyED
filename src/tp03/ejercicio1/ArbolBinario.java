@@ -111,7 +111,6 @@ public class ArbolBinario<T> {
     public void porNiveles() {
     	ArbolBinario<T> a = null;
     	ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>>();
-    	int nivel = 0;
     	cola.encolar(this);
     	cola.encolar(null);
     	while(!cola.esVacia()) {
@@ -125,7 +124,6 @@ public class ArbolBinario<T> {
     		}
     		else if (!cola.esVacia()) {
     				cola.encolar(null);
-    				nivel++;
     				System.out.println("-");
     		}
     	}
