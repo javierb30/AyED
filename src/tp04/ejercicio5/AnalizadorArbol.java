@@ -2,7 +2,6 @@ package tp04.ejercicio5;
 import tp02.ListaGenerica;
 import tp02.ejercicio3.ColaGenerica;
 import tp04.ejercicio1.ArbolGeneral;
-import tp04.ejercicio5.*;
 
 public class AnalizadorArbol {
 	

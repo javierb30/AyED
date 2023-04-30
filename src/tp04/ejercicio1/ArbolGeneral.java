@@ -155,4 +155,98 @@ public class ArbolGeneral<T> {
 		}
 		return cantMax;
 	}
+	//Mas complejo
+	public Boolean esAncestro (T a,T b) {
+		ListaGenerica<T> lista = new ListaEnlazadaGenerica<T>();
+		ListaGenerica<T> camino = new ListaEnlazadaGenerica<T>();
+		lista.agregarInicio(this.getDato());
+		esAncestro (a,b,lista,camino);
+		if ((camino.incluye(a)) && (camino.incluye(b))){
+			return true;
+		}
+		return false;	
+	}
+	
+	private void clonar(ListaGenerica<T> lista,ListaGenerica<T> camino) {
+		lista.comenzar();
+		while (!lista.fin()) {
+			camino.agregarFinal(lista.proximo());
+		}
+	}
+
+	private void esAncestro(T a, T b,ListaGenerica<T> lista,ListaGenerica<T> camino) {
+		if (this.getDato() == b) 
+			clonar(lista,camino);
+		if (camino.esVacia()){
+			ListaGenerica<ArbolGeneral<T>> lhijos = this.getHijos();
+			lhijos.comenzar();
+			while ((!lhijos.fin()) && (camino.esVacia())){
+					ArbolGeneral<T> aux = lhijos.proximo();
+					lista.agregarFinal(aux.getDato());
+					aux.esAncestro(a,b,lista,camino);
+					lista.eliminarEn(lista.tamanio());
+				}
+			}
+		}
+	//Mas del estilo que se venia trabajando
+	public Boolean esAncestro2 (T a,T b) {
+		return buscarA(a,b,this);
+	}
+	
+	private Boolean buscarA (T a, T b, ArbolGeneral<T> arbol) {
+		Boolean ok = false;
+		if (arbol.getDato() == a) {
+			if (arbol.tieneHijos()) {
+				ListaGenerica <ArbolGeneral<T>> l = arbol.getHijos();
+				l.comenzar();
+				while((!l.fin())&& (!ok)) 
+					ok = buscarB(a,b,l.proximo());
+			}
+		}
+		else{if (arbol.tieneHijos()) {
+			ListaGenerica <ArbolGeneral<T>> l = arbol.getHijos();
+			l.comenzar();
+			while((!l.fin())&& (!ok)) 
+				ok = buscarA(a,b,l.proximo());	
+		}}
+	 return ok;
+    }
+	
+	private Boolean buscarB (T a, T b, ArbolGeneral<T> arbol) {
+		Boolean ok = false;
+		if (arbol.getDato() == b)
+			return true;
+		if (arbol.tieneHijos()) {
+			ListaGenerica <ArbolGeneral<T>> l = arbol.getHijos();
+			l.comenzar();
+			while((!l.fin())&& (!ok)) 
+				ok = buscarB(a,b,l.proximo());
+		}
+	return ok;	
+	}
+	
+	
+	
+	/*public boolean esAncestro(T a,T b) {
+		boolean encontre = false;
+		if(this.getDato() == a) {
+			encontre= true;
+			if(this.tieneHijos()) {
+				ListaGenerica<ArbolGeneral<T>> hijos = this.getHijos();
+				hijos.comenzar();
+				while(!hijos.fin()) 
+					encontre = hijos.proximo().esAncestro(a, b);
+			}
+		}
+		else {
+			if(this.tieneHijos()) {
+				ListaGenerica<ArbolGeneral<T>> hijos = this.getHijos();
+				hijos.comenzar();
+				while(!hijos.fin()) 
+					encontre = hijos.proximo().esAncestro(a, b);
+			}
+		}
+		//Acomodar
+		return true;
+	}*/
 }

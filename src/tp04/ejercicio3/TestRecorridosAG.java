@@ -1,5 +1,4 @@
 package tp04.ejercicio3;
-import tp04.ejercicio3.*;
 import tp04.ejercicio1.*;
 
 public class TestRecorridosAG {

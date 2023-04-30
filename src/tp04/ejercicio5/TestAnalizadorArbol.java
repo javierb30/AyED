@@ -1,7 +1,6 @@
 package tp04.ejercicio5;
 
 import tp04.ejercicio1.ArbolGeneral;
-import tp04.ejercicio5.*;
 
 public class TestAnalizadorArbol {
 	public static void main(String[] args) {
